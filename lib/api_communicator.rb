@@ -11,10 +11,12 @@ def get_character_movies_from_api(character)
   # if the character is the same
   # for each string in the films array
   # collect the film numbers
-  chars = character_hash['results'].each do |character|
-    return character['name']
+  character_hash['results'].each do |the_character, character_data|
+    puts "#{the_character}"
+    binding.pry
+
   end
-  puts chars
+
 
   # iterate over the character hash to find the collection of `films` for the given
   #   `character`
@@ -26,7 +28,6 @@ def get_character_movies_from_api(character)
   #  and that method will do some nice presentation stuff: puts out a list
   #  of movies by title. play around with puts out other info about a given film.
 
-  binding.pry
 end
 
 def parse_character_movies(films_hash)
@@ -42,5 +43,3 @@ end
 
 # that `get_character_movies_from_api` method is probably pretty long. Does it do more than one job?
 # can you split it up into helper methods?
-
-get_character_movies_from_api('Luke Skywalker')
