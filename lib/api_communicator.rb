@@ -6,17 +6,12 @@ def get_character_movies_from_api(character)
   #make the web request
   all_characters = RestClient.get('http://www.swapi.co/api/people/')
   character_hash = JSON.parse(all_characters)
-  # character_hash['results'].each do |the_character, character_data|
-  #   puts "#{the_character}"
-  #   binding.pry
-  #
-  # end
+
   character_data = character_hash['results']
   selected_character = character_data.find do |character_info|
       character_info['name'] == character
   end
   return selected_character["films"]
-
 
   # iterate over the character hash to find the collection of `films` for the given
   #   `character`
@@ -29,13 +24,19 @@ def get_character_movies_from_api(character)
   #  of movies by title. play around with puts out other info about a given film.
 end
 
-def parse_character_movies(films_hash)
+def parse_character_movies(films_array) #films_hash
   # some iteration magic and puts out the movies in a nice list
+  # films_array.collect do |film|
+  #   scraped_films = RestClient.get(film)
+  #   parsed_films = JSON.parse(scraped_films)
+  # end
+  #JSON.parse(RestClient.get(films_array[0]))['title']
+  binding.pry
 end
 
 def show_character_movies(character)
-  films_hash = get_character_movies_from_api(character)
-  parse_character_movies(films_hash)
+  films_array = get_character_movies_from_api(character)
+  parse_character_movies(films_array)
 end
 
 ## BONUS
@@ -43,4 +44,4 @@ end
 # that `get_character_movies_from_api` method is probably pretty long. Does it do more than one job?
 # can you split it up into helper methods?
 
-puts get_character_movies_from_api('Luke Skywalker')
+show_character_movies('Luke Skywalker')
