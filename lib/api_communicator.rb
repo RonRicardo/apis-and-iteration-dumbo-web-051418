@@ -3,7 +3,6 @@ require 'json'
 require 'pry'
 
 def get_character_movies_from_api(character)
-  #make the web request
   all_characters = RestClient.get('http://www.swapi.co/api/people/')
   character_hash = JSON.parse(all_characters)
 
@@ -15,16 +14,7 @@ def get_character_movies_from_api(character)
   films_hash = char_films.collect do |film|
     RestClient.get(film)
   end
-  #films_hash = JSON.parse(char_films)
-  # iterate over the character hash to find the collection of `films` for the given
-  #   `character`
-  # collect those film API urls, make a web request to each URL to get the info
-  #  for that film
-  # return value of this method should be collection of info about each film.
-  #  i.e. an array of hashes in which each hash reps a given film
-  # this collection will be the argument given to `parse_character_movies`
-  #  and that method will do some nice presentation stuff: puts out a list
-  #  of movies by title. play around with puts out other info about a given film.
+  films_hash
 end
 
 def parse_character_movies(films_hash)
@@ -35,19 +25,6 @@ def parse_character_movies(films_hash)
     film['title']
   end
   film_titles.each_with_index {|film, index| puts "#{index + 1} #{film}"}
-  # counter = 0
-  # # some iteration magic and puts out the movies in a nice list
-  # all_characters = RestClient.get('http://www.swapi.co/api/people/')
-  # character_hash = JSON.parse(all_characters)
-  #
-  # char_data = character_hash['results']
-  # selected_char = char_data.find do |character|
-  #   character['name'] == character_name
-  #   while counter < character['films'].length do
-  #     puts "#{counter}. #{character['films']}"
-  #     counter += 1
-  #   end
-  # end
 end
 
 def show_character_movies(character)
